@@ -244,9 +244,19 @@ class ServidorPc:
                 self.end_headers()
                 self.wfile.write(corpo)
 
+        class Exclusivo(ThreadingHTTPServer):
+            # no Windows, «reuse address» deixa DOIS servidores na mesma porta (os pedidos iam para a instância errada, com outra chave):
+            # aqui a porta é exclusiva, e uma segunda instância passa para a seguinte
+            allow_reuse_address = False
+
+            def server_bind(self):
+                if hasattr(socket, "SO_EXCLUSIVEADDRUSE"):
+                    self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
+                super().server_bind()
+
         for p in range(porta, porta + 20):  # a primeira porta livre
             try:
-                self.http = ThreadingHTTPServer(("0.0.0.0", p), Pedido)
+                self.http = Exclusivo(("0.0.0.0", p), Pedido)
                 self.porta = p
                 break
             except OSError:

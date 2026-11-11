@@ -13,6 +13,8 @@ Na página [Releases](https://github.com/leonelferreira0373/ligar-adb/releases):
 **`LigarADB.apk`** (Android 11 ou mais recente). Na 1.ª vez, o Windows pode pedir para deixar passar a app na firewall: aceite em
 «Redes privadas» (a app do telemóvel fala com a do PC na rede local).
 
+**Guia de uso completo:** [docs/GUIA.md](docs/GUIA.md) (instalar, emparelhar, dia a dia, cada botão, automático, problemas e soluções, segurança, desinstalar, perguntas).
+
 ## As duas apps
 
 | | O que faz |
